@@ -37,18 +37,16 @@ class UserController extends Controller
 
 
     ///view user by id
-    public function viewUser($id)
+    public function viewUser($name)
     {
         // Retrieve the user by their ID
-        $user = User::find($id);
+        $users = User::where('name', 'like', '%' . $name . '%')->get();
 
-        // Check if the user exists
-        if (!$user) {
-            return response()->json(['message' => 'User not found'], 404);
+        if ($users->isNotEmpty()) {
+            return response()->json($users);
+        } else {
+            return response()->json(['message' => 'No users found'], 404);
         }
-
-        // Return the user as JSON
-        return response()->json($user);
     }
 
     //user view own profile

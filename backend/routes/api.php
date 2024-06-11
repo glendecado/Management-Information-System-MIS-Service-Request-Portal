@@ -16,7 +16,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [UserController::class, 'viewProfile']);
 
     // Route to get a specific user by ID
-    Route::get('/user/{id}', [UserController::class, 'viewUser']);
+    Route::get('/user/{name}', [UserController::class, 'viewUser']);
 
     // Add other routes here as needed
 });

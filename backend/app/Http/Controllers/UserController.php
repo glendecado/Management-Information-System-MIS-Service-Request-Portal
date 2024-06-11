@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+
+    //user login
     public function login(Request $request)
     {
         $request->validate([
@@ -32,6 +35,8 @@ class UserController extends Controller
         ]);
     }
 
+
+    ///view user by id
     public function viewUser($id)
     {
         // Retrieve the user by their ID
@@ -45,6 +50,15 @@ class UserController extends Controller
         // Return the user as JSON
         return response()->json($user);
     }
+
+    //user view own profile
+    public function viewProfile()
+    {
+        $user = Auth::user();
+        return response()->json($user);
+    }
+
+    /// user logout
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
@@ -53,4 +67,6 @@ class UserController extends Controller
             'message' => 'Logged out successfully'
         ]);
     }
+
+
 }

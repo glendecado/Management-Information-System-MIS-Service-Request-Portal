@@ -13,6 +13,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // logout
     Route::get('/logout', [UserController::class, 'logout']);
 
+    Route::get('/profile', [UserController::class, 'viewProfile']);
+
     // Route to get a specific user by ID
     Route::get('/user/{id}', [UserController::class, 'viewUser']);
 

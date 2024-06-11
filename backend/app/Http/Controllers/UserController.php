@@ -37,14 +37,14 @@ class UserController extends Controller
 
 
     ///view user by id
-    public function viewUser($name)
+    public function viewUser(Request $request)
     {
-        // Retrieve the user by their ID
-        $users = User::where('name', 'like', '%' . $name . '%')->get();
-        if(Auth::user()->role === "misStaff"){
-            
-            return response()->json(['message' => 'unable to access account']);
-        }
+        $name = $request->input('name');
+        //retrieve by name
+        $users = User::where('name', 'like', '%' . $name . '%')
+            ->where('role', '!=', 'misStaff')
+            ->get();
+
         if ($users->isNotEmpty()) {
             return response()->json($users);
         } else {
@@ -68,6 +68,4 @@ class UserController extends Controller
             'message' => 'Logged out successfully'
         ]);
     }
-
-
 }

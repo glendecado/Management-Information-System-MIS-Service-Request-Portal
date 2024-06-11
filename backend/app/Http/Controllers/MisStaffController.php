@@ -12,16 +12,16 @@ class MisStaffController extends Controller
     {
         // Validate the request data
         $validatedData = $request->validate([
-            'role' => 'required|string',
             'name' => 'required|string|max:255',
+            'role' => 'required|string|in:techStaff,facultyStaff',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
         ]);
 
         // Create the new user
         $user = User::create([
-            'role' => $validatedData['role'],
             'name' => $validatedData['name'],
+            'role' => $validatedData['role'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
         ]);

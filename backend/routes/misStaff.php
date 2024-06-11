@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth:sanctum', 'misStaff'])->group(function () {
     Route::get('/mis', [MisStaffController::class, 'dashboard']);
-    // Add other admin routes here
+
+    Route::post('/addUser', [MisStaffController::class, 'addUser']);//add user
+    
 });
 

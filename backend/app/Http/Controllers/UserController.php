@@ -41,7 +41,10 @@ class UserController extends Controller
     {
         // Retrieve the user by their ID
         $users = User::where('name', 'like', '%' . $name . '%')->get();
-
+        if(Auth::user()->role === "misStaff"){
+            
+            return response()->json(['message' => 'unable to access account']);
+        }
         if ($users->isNotEmpty()) {
             return response()->json($users);
         } else {

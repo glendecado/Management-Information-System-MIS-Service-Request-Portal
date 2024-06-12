@@ -30,6 +30,23 @@ class MisStaffController extends Controller
         return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
     }
 
+    public function deleteUser($id)
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        // Check if user exists
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+
+        // Delete the user
+        $user->delete();
+
+        // Return a response
+        return response()->json(['message' => 'User deleted successfully']);
+    }
+    
     public function dashboard()
     {
         return response()->json(['message' => 'welcome']);
